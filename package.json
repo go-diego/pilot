@@ -1,0 +1,33 @@
+{
+    "name": "lorem-ipsum",
+    "version": "1.0.0",
+    "description": "Lorem Ispsum",
+    "main": "index.js",
+    "scripts": {
+        "build": "babel index.js -o dist/index.compiled.js",
+        "start": "http-server ./dist -o"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@babel/cli": "^7.0.0",
+        "@babel/core": "^7.0.1",
+        "@babel/plugin-proposal-class-properties": "^7.0.0",
+        "@babel/plugin-proposal-decorators": "^7.0.0",
+        "@babel/plugin-proposal-export-namespace-from": "^7.0.0",
+        "@babel/plugin-proposal-function-sent": "^7.0.0",
+        "@babel/plugin-proposal-json-strings": "^7.0.0",
+        "@babel/plugin-proposal-numeric-separator": "^7.0.0",
+        "@babel/plugin-proposal-throw-expressions": "^7.0.0",
+        "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+        "@babel/plugin-syntax-import-meta": "^7.0.0",
+        "@babel/plugin-transform-block-scoping": "^7.0.0",
+        "@babel/plugin-transform-classes": "^7.0.0",
+        "@babel/polyfill": "^7.0.0",
+        "@babel/preset-env": "^7.0.0",
+        "@babel/preset-es2015": "^7.0.0-beta.53",
+        "@babel/preset-es2017": "^7.0.0-beta.53",
+        "http-server": "^0.11.1",
+        "rimraf": "^2.6.1"
+    }
+}
