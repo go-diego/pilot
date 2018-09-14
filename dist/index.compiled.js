@@ -102,15 +102,38 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 __webpack_require__(/*! ./site.scss */ "./site.scss");
 
-var service = new _service.default();
+var service = new _service.default(); // TODO: show view count?
+
+var suggestion = function suggestion(thumbnail, title, description) {
+  var template = "\n    <div class=\"box\">\n        <article class=\"media\">\n            <figure class=\"media-left\">\n                <p class=\"image is-64x64\">\n                    <img src=\"".concat(thumbnail.url, "\">\n                </p>\n            </figure>\n            <div class=\"media-content\">\n                <div class=\"content\">\n                <p>\n                    <strong>").concat(title, "</strong>\n                    <br>\n                    ").concat(description, "\n                </p>\n            </div>\n        </article>\n    </div>");
+  return template;
+};
+
 document.addEventListener("DOMContentLoaded", function (event) {
-  //do work
+  var suggestionsContainer = document.querySelector("#suggestions");
   var searchBar = document.querySelector("#searchBar");
-  searchBar.addEventListener("keydown", function (event) {
-    service.getSuggestions(event.target.value).then(function (response) {
-      return console.log("RESPONSE", response);
-    });
+  var suggestionsList = [];
+  searchBar.addEventListener("keypress", function (event) {
+    if (searchBar.value == "") {
+      suggestionsList = [];
+      renderSuggestion(suggestionsList);
+    } else {
+      service.getSuggestions(event.target.value).then(function (response) {
+        for (var i = 0; i < response.items.length; i++) {
+          var snippet = response.items[i].snippet;
+          suggestionsList.push(suggestion(snippet.thumbnails.high, snippet.title, snippet.description));
+        }
+
+        renderSuggestion(suggestionsList);
+        suggestionsList = [];
+      });
+    }
   });
+
+  var renderSuggestion = function renderSuggestion(list) {
+    var content = list.join("");
+    suggestionsContainer.innerHTML = content;
+  };
 });
 
 /***/ }),
