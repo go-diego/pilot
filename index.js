@@ -3,4 +3,9 @@ import Service from "./service.js";
 
 const service = new Service();
 
-service.getSuggestions("Cats").then(response => console.log("RESPONSE", response));
+document.addEventListener("DOMContentLoaded", function(event) {
+    const searchBar = document.querySelector("#searchBar");
+    searchBar.addEventListener("keydown", event => {
+        service.getSuggestions(event.target.value).then(response => console.log("RESPONSE", response));
+    });
+});

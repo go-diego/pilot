@@ -7,7 +7,8 @@ export default class Service {
             order: "viewCount",
             type: "video",
             videoDefinition: "high",
-            key: this.apiKey
+            key: this.apiKey,
+            maxResults: 10
         };
     }
     getSuggestions = q => {

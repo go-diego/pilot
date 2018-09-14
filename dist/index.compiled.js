@@ -103,8 +103,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 __webpack_require__(/*! ./site.scss */ "./site.scss");
 
 var service = new _service.default();
-service.getSuggestions("Cats").then(function (response) {
-  return console.log("RESPONSE", response);
+document.addEventListener("DOMContentLoaded", function (event) {
+  //do work
+  var searchBar = document.querySelector("#searchBar");
+  searchBar.addEventListener("keydown", function (event) {
+    service.getSuggestions(event.target.value).then(function (response) {
+      return console.log("RESPONSE", response);
+    });
+  });
 });
 
 /***/ }),
@@ -157,7 +163,8 @@ var Service = function Service() {
     order: "viewCount",
     type: "video",
     videoDefinition: "high",
-    key: this.apiKey
+    key: this.apiKey,
+    maxResults: 10
   };
 };
 
