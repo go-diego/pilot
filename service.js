@@ -1,12 +1,20 @@
 export default class Service {
     constructor() {
-        this.apiKey = "12345";
+        this.apiKey = "AIzaSyAPyuCQu7YnH3SNA-lF80YMbBO6OjgAMeY";
+        this.origin = "https://www.googleapis.com/youtube/v3/search";
+        this.baseParams = {
+            part: "snippet",
+            order: "viewCount",
+            type: "video",
+            videoDefinition: "high",
+            key: this.apiKey
+        };
     }
-    getSuggestions = value => {
-        return new Promise((resolve, reject) => resolve(value));
-    };
+    getSuggestions = q => {
+        const url = new URL(this.origin);
+        const params = { ...this.baseParams, q };
+        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
-    getApiKey = () => {
-        return new Promise((resolve, reject) => resolve(this.apiKey));
+        return fetch(url, params).then(response => response.json());
     };
 }

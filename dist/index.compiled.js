@@ -103,11 +103,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 __webpack_require__(/*! ./site.scss */ "./site.scss");
 
 var service = new _service.default();
-service.getApiKey().then(function (response) {
-  return console.log("YOU APIKEY IS ".concat(response));
-});
-service.getSuggestions("Lorem Ipsum").then(function (response) {
-  return console.log("Should return \"Lorem Ipsum\": ".concat(response));
+service.getSuggestions("Cats").then(function (response) {
+  return console.log("RESPONSE", response);
 });
 
 /***/ }),
@@ -127,6 +124,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -136,19 +135,30 @@ var Service = function Service() {
 
   _classCallCheck(this, Service);
 
-  _defineProperty(this, "getSuggestions", function (value) {
-    return new Promise(function (resolve, reject) {
-      return resolve(value);
+  _defineProperty(this, "getSuggestions", function (q) {
+    var url = new URL(_this.origin);
+
+    var params = _objectSpread({}, _this.baseParams, {
+      q: q
+    });
+
+    Object.keys(params).forEach(function (key) {
+      return url.searchParams.append(key, params[key]);
+    });
+    return fetch(url, params).then(function (response) {
+      return response.json();
     });
   });
 
-  _defineProperty(this, "getApiKey", function () {
-    return new Promise(function (resolve, reject) {
-      return resolve(_this.apiKey);
-    });
-  });
-
-  this.apiKey = "12345";
+  this.apiKey = "AIzaSyAPyuCQu7YnH3SNA-lF80YMbBO6OjgAMeY";
+  this.origin = "https://www.googleapis.com/youtube/v3/search";
+  this.baseParams = {
+    part: "snippet",
+    order: "viewCount",
+    type: "video",
+    videoDefinition: "high",
+    key: this.apiKey
+  };
 };
 
 exports.default = Service;
