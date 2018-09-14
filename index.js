@@ -1,4 +1,4 @@
-// check that document loads
+require("./site.scss");
 import Service from "./service.js";
 
 const service = new Service();

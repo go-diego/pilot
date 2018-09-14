@@ -1,4 +1,5 @@
 const path = require("path");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
     entry: "./index.js",
@@ -20,7 +21,15 @@ module.exports = {
                         plugins: ["@babel/plugin-proposal-class-properties"]
                     }
                 }
+            },
+            {
+                test: /\.scss$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: ["css-loader", "sass-loader"]
+                })
             }
         ]
-    }
+    },
+    plugins: [new ExtractTextPlugin("site.css")]
 };
