@@ -4,16 +4,15 @@ export default class Service {
         this.origin = "https://www.googleapis.com/youtube/v3/search";
         this.baseParams = {
             part: "snippet",
-            order: "viewCount",
             type: "video",
             videoDefinition: "high",
             key: this.apiKey,
             maxResults: 10
         };
     }
-    getSuggestions = q => {
+    getSuggestions = (q, order = "relevance") => {
         const url = new URL(this.origin);
-        const params = { ...this.baseParams, q };
+        const params = { ...this.baseParams, q, order };
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
         return fetch(url, params).then(response => response.json());

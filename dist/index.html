@@ -22,12 +22,30 @@
                         <h1 class="title has-text-centered">
                             Lorem Ipsum
                         </h1>
-                        <p class="control has-icons-left">
-                            <input class="input is-rounded" type="text" placeholder="Search for YouTube videos" id="searchBar">
-                            <span class="icon is-small is-left">
-                                <i class="fas fa-search" aria-hidden="true"></i>
-                            </span>
-                        </p>
+                        <div class="field has-addons">
+                            <p class="control has-icons-left w-100">
+                                <input class="input is-rounded" type="text" placeholder="Search for YouTube videos" id="search-bar">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-search" aria-hidden="true"></i>
+                                </span>
+                            </p>
+                            <p class="control">
+                                <a disabled class="button" id="order-by-views">
+                                    <span class="icon is-small">
+                                        <i class="fas fa-eye"></i>
+                                    </span>
+                                    <span class="is-size-7">Most Views</span>
+                                </a>
+                            </p>
+                            <p class="control">
+                                <a disabled class="button" id="order-by-ratings">
+                                    <span class="icon is-small">
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <span class="is-size-7">Most Ratings</span>
+                                </a>
+                            </p>
+                        </div>
                         <div id="suggestions"></div>
                     </div>
                 </div>

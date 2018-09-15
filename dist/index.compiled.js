@@ -102,7 +102,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 __webpack_require__(/*! ./site.scss */ "./site.scss");
 
-var service = new _service.default(); // TODO: show view count?
+var service = new _service.default();
 
 var suggestion = function suggestion(thumbnail, title, description) {
   var template = "\n    <div class=\"box\">\n        <article class=\"media\">\n            <figure class=\"media-left\">\n                <p class=\"image is-128x128\">\n                    <img src=\"".concat(thumbnail.url, "\">\n                </p>\n            </figure>\n            <div class=\"media-content\">\n                <div class=\"content\">\n                <p>\n                    <strong>").concat(title, "</strong>\n                    <br>\n                    ").concat(description, "\n                </p>\n            </div>\n        </article>\n    </div>");
@@ -111,24 +111,59 @@ var suggestion = function suggestion(thumbnail, title, description) {
 
 document.addEventListener("DOMContentLoaded", function (event) {
   var suggestionsContainer = document.querySelector("#suggestions");
-  var searchBar = document.querySelector("#searchBar");
+  var searchBar = document.querySelector("#search-bar");
+  var orderByViewsBtn = document.querySelector("#order-by-views");
+  var orderByRatingsBtn = document.querySelector("#order-by-ratings");
   var suggestionsList = [];
+  var order;
+  orderByViewsBtn.addEventListener("click", function (event) {
+    orderByViewsBtn.classList.toggle("is-warning");
+
+    if (orderByRatingsBtn.classList.contains("is-warning")) {
+      orderByRatingsBtn.classList.remove("is-warning");
+      order = "viewCount";
+      getSuggestions(searchBar.value, order);
+    } else {
+      getSuggestions(searchBar.value);
+    }
+  });
+  orderByRatingsBtn.addEventListener("click", function (event) {
+    orderByRatingsBtn.classList.toggle("is-warning");
+
+    if (orderByViewsBtn.classList.contains("is-warning")) {
+      orderByViewsBtn.classList.remove("is-warning");
+      order = "rating";
+      getSuggestions(searchBar.value, order);
+    } else {
+      getSuggestions(searchBar.value);
+    }
+  });
   searchBar.addEventListener("keyup", function (event) {
     if (searchBar.value == "") {
+      orderByRatingsBtn.setAttribute("disabled", true);
+      orderByViewsBtn.setAttribute("disabled", true);
+      orderByRatingsBtn.classList.remove("is-warning");
+      orderByViewsBtn.classList.remove("is-warning");
       suggestionsList = [];
       renderSuggestion(suggestionsList);
     } else {
-      service.getSuggestions(event.target.value).then(function (response) {
-        for (var i = 0; i < response.items.length; i++) {
-          var snippet = response.items[i].snippet;
-          suggestionsList.push(suggestion(snippet.thumbnails.high, snippet.title, snippet.description));
-        }
-
-        renderSuggestion(suggestionsList);
-        suggestionsList = [];
-      });
+      orderByRatingsBtn.removeAttribute("disabled");
+      orderByViewsBtn.removeAttribute("disabled");
+      getSuggestions(event.target.value, order);
     }
   });
+
+  var getSuggestions = function getSuggestions(q, order) {
+    return service.getSuggestions(q, order).then(function (response) {
+      for (var i = 0; i < response.items.length; i++) {
+        var snippet = response.items[i].snippet;
+        suggestionsList.push(suggestion(snippet.thumbnails.high, snippet.title, snippet.description));
+      }
+
+      renderSuggestion(suggestionsList);
+      suggestionsList = [];
+    });
+  };
 
   var renderSuggestion = function renderSuggestion(list) {
     var content = list.join("");
@@ -165,12 +200,15 @@ var Service = function Service() {
   _classCallCheck(this, Service);
 
   _defineProperty(this, "getSuggestions", function (q) {
+    var order = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "relevance";
     var url = new URL(_this.origin);
 
     var params = _objectSpread({}, _this.baseParams, {
-      q: q
+      q: q,
+      order: order
     });
 
+    console.log("PARAMS", params);
     Object.keys(params).forEach(function (key) {
       return url.searchParams.append(key, params[key]);
     });
@@ -183,7 +221,7 @@ var Service = function Service() {
   this.origin = "https://www.googleapis.com/youtube/v3/search";
   this.baseParams = {
     part: "snippet",
-    order: "viewCount",
+    //order: "viewCount",
     type: "video",
     videoDefinition: "high",
     key: this.apiKey,

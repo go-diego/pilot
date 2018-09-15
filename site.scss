@@ -1,6 +1,14 @@
 @charset "utf-8";
 @import "~bulma/bulma";
 
+.w-100 {
+    width: 100% !important;
+}
+
+[disabled] {
+    pointer-events: none;
+}
+
 #suggestions {
     padding-top: 15px;
 }
