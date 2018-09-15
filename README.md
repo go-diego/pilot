@@ -2,11 +2,11 @@ This is a coding exercise that implements a search bar for fetching data from th
 
 ## Tools
 
--   [Webpack]()
--   [Babel]()
--   [Bulma]()
--   [dotenv-webpack]() for managing YouTube API Key
--   [fetch API]()
+-   [Webpack](https://webpack.js.org/)
+-   [Babel](https://babeljs.io/)
+-   [Bulma](https://bulma.io/)
+-   [dotenv-webpack](https://github.com/mrsteele/dotenv-webpack#readme) for managing YouTube API Key
+-   [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
 
 ## Instructions
 
