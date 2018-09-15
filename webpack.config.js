@@ -33,5 +33,11 @@ module.exports = {
             }
         ]
     },
-    plugins: [new ExtractTextPlugin("site.css"), new Dotenv(), new CopyWebpackPlugin(["./src/index.html"])]
+    plugins: [
+        new ExtractTextPlugin("site.css"),
+        new Dotenv({
+            systemvars: true
+        }),
+        new CopyWebpackPlugin(["./src/index.html"])
+    ]
 };
