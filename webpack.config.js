@@ -1,9 +1,10 @@
 const path = require("path");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
 
 module.exports = {
-    entry: "./index.js",
+    entry: "./src/index.js",
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "index.compiled.js"
@@ -32,5 +33,5 @@ module.exports = {
             }
         ]
     },
-    plugins: [new ExtractTextPlugin("site.css"), new Dotenv()]
+    plugins: [new ExtractTextPlugin("site.css"), new Dotenv(), new CopyWebpackPlugin(["./src/index.html"])]
 };
