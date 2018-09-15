@@ -9,7 +9,7 @@ const suggestion = (thumbnail, title, description) => {
     <div class="box">
         <article class="media">
             <figure class="media-left">
-                <p class="image is-64x64">
+                <p class="image is-128x128">
                     <img src="${thumbnail.url}">
                 </p>
             </figure>
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const searchBar = document.querySelector("#searchBar");
     let suggestionsList = [];
 
-    searchBar.addEventListener("keypress", event => {
+    searchBar.addEventListener("keyup", event => {
         if (searchBar.value == "") {
             suggestionsList = [];
             renderSuggestion(suggestionsList);

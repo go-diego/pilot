@@ -1,6 +1,6 @@
 export default class Service {
     constructor() {
-        this.apiKey = "AIzaSyAPyuCQu7YnH3SNA-lF80YMbBO6OjgAMeY";
+        this.apiKey = process.env.APIKEY;
         this.origin = "https://www.googleapis.com/youtube/v3/search";
         this.baseParams = {
             part: "snippet",

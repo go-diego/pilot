@@ -105,7 +105,7 @@ __webpack_require__(/*! ./site.scss */ "./site.scss");
 var service = new _service.default(); // TODO: show view count?
 
 var suggestion = function suggestion(thumbnail, title, description) {
-  var template = "\n    <div class=\"box\">\n        <article class=\"media\">\n            <figure class=\"media-left\">\n                <p class=\"image is-64x64\">\n                    <img src=\"".concat(thumbnail.url, "\">\n                </p>\n            </figure>\n            <div class=\"media-content\">\n                <div class=\"content\">\n                <p>\n                    <strong>").concat(title, "</strong>\n                    <br>\n                    ").concat(description, "\n                </p>\n            </div>\n        </article>\n    </div>");
+  var template = "\n    <div class=\"box\">\n        <article class=\"media\">\n            <figure class=\"media-left\">\n                <p class=\"image is-128x128\">\n                    <img src=\"".concat(thumbnail.url, "\">\n                </p>\n            </figure>\n            <div class=\"media-content\">\n                <div class=\"content\">\n                <p>\n                    <strong>").concat(title, "</strong>\n                    <br>\n                    ").concat(description, "\n                </p>\n            </div>\n        </article>\n    </div>");
   return template;
 };
 
@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   var suggestionsContainer = document.querySelector("#suggestions");
   var searchBar = document.querySelector("#searchBar");
   var suggestionsList = [];
-  searchBar.addEventListener("keypress", function (event) {
+  searchBar.addEventListener("keyup", function (event) {
     if (searchBar.value == "") {
       suggestionsList = [];
       renderSuggestion(suggestionsList);
@@ -179,7 +179,7 @@ var Service = function Service() {
     });
   });
 
-  this.apiKey = "AIzaSyAPyuCQu7YnH3SNA-lF80YMbBO6OjgAMeY";
+  this.apiKey = "AIzaSyC6k7arDgNRPIlqtbyZZIhOKW5hfW3PTZ4";
   this.origin = "https://www.googleapis.com/youtube/v3/search";
   this.baseParams = {
     part: "snippet",
